@@ -1,0 +1,9 @@
+name: InventoryRequest
+main: me.ceramictitan.inventory.InventoryRequest
+version: 1.1.6
+description: >
+             Inventory view plugin
+commands:
+  invreq:
+    description: Allows you to change your nickname
+softdepend: [PluginManager]
