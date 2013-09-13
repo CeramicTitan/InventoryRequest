@@ -65,6 +65,13 @@ public class RequestHandler {
 	    sender.sendMessage("You are not in the hashmap");
 	}
     }
+    public void checkUserInHashmap(CommandSender sender, Player target){
+	if(requests.containsKey(target.getName())){
+	    sender.sendMessage(target.getName()+" is in the hashmap");
+	}else{
+	    sender.sendMessage(target+" is not in the hashmap");
+	}
+    }
     public void clearUser(CommandSender sender){
 	requests.remove(sender.getName());
     }

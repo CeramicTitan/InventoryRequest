@@ -33,9 +33,18 @@ public class InventoryRequest extends JavaPlugin {
 		if(args.length == 1){
 		    if(args[0].equalsIgnoreCase("check")){
 			handler.isInHashMap(sender);
+			return true;
 		    }else if(args[0].equalsIgnoreCase("clear")){
 
 			handler.clearUser(sender);
+			return true;
+		    }
+		}else if(args.length == 2){
+		    if(args[0].equalsIgnoreCase("check")){
+			Player target = getServer().getPlayer(args[1])){
+			    handler.checkUserInHashmap(sender, target);
+			    return true;
+			}
 		    }
 		}
 	    }
@@ -61,7 +70,7 @@ public class InventoryRequest extends JavaPlugin {
 		}else if(args[0].equalsIgnoreCase("send")){
 		    if(sender instanceof Player){
 			Player requester = (Player)sender;
-			Player target = getServer().getPlayerExact(String.valueOf(args[1]));
+			Player target = getServer().getPlayer(args[1]);
 			if(target !=null){
 			    handler.sendRequest(requester, target);
 			    requester.sendMessage("Inventory request sent to "+target.getName());
