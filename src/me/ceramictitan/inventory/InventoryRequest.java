@@ -41,10 +41,9 @@ public class InventoryRequest extends JavaPlugin {
 		    }
 		}else if(args.length == 2){
 		    if(args[0].equalsIgnoreCase("check")){
-			Player target = getServer().getPlayer(args[1])){
-			    handler.checkUserInHashmap(sender, target);
-			    return true;
-			}
+			Player target = getServer().getPlayer(args[1]);
+			handler.checkUserInHashmap(sender, target);
+			return true;
 		    }
 		}
 	    }

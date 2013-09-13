@@ -1,16 +1,15 @@
 package me.ceramictitan.inventory;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
+import com.google.common.collect.HashBiMap;
+
 public class RequestHandler {
 
-    public static Map<String, String> requests = new HashMap<String, String>();
+    public static HashBiMap<String, String> requests = HashBiMap.create();
 
     public void sendRequest(Player requester, Player target){
 	if(requester == target){
@@ -25,7 +24,7 @@ public class RequestHandler {
 	if(target == null){
 	    return false;
 	}
-	if(requests.containsKey(target.getName())){
+	if(requests.containsValue(target.getName())){
 	    return true;
 	}
 	return false;
@@ -66,7 +65,7 @@ public class RequestHandler {
 	}
     }
     public void checkUserInHashmap(CommandSender sender, Player target){
-	if(requests.containsKey(target.getName())){
+	if(requests.containsValue(target.getName())){
 	    sender.sendMessage(target.getName()+" is in the hashmap");
 	}else{
 	    sender.sendMessage(target+" is not in the hashmap");
