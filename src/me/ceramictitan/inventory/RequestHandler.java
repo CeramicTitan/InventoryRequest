@@ -1,5 +1,7 @@
 package me.ceramictitan.inventory;
 
+import java.util.Map;
+
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -30,10 +32,15 @@ public class RequestHandler {
 	return false;
     }
     public Player getRequester(Player target){
-	if(target == null){
-	    return null;
+	if (target != null) {
+	    for (Map.Entry<String, String> entry : requests.entrySet()) {
+		if (entry.getValue().equalsIgnoreCase(target.getName())) {
+		    return Bukkit.getPlayer(entry.getKey());
+		}
+	    }
 	}
-	return Bukkit.getPlayer(requests.get(target.getName()));
+
+	return null;
     }
 
     public String getRequesterName(Player target){
@@ -49,12 +56,14 @@ public class RequestHandler {
 	Inventory inv = target.getInventory();
 	requester.closeInventory();
 	requester.openInventory(inv);
+	clearUsers(requester, target);
     }
     public void denyRequest(Player requester, Player target){
 	requester.sendMessage(target.getName()+ " declined your request!");
 	target.sendMessage("Declined "+requester.getName()+"'s request!");
+	clearUsers(requester, target);
     }
-    public void clearUsers(Player requester, Player target){
+    public static void clearUsers(Player requester, Player target){
 	if(requests.containsKey(target.getName()) || requests.containsValue(target.getName()) && requests.containsKey(requester.getName()) || requests.containsValue(requester.getName())){
 	    requests.remove(requester.getName());
 	    requests.remove(target.getName());

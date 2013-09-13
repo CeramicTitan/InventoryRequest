@@ -86,7 +86,6 @@ public class InventoryRequest extends JavaPlugin {
 			if(player != null){
 			    if(handler.hasRequest(player)){
 				handler.acceptRequest(handler.getRequester(player), player);
-				handler.clearUsers(handler.getRequester(player), player);
 				return true;
 			    }else{
 				player.sendMessage("You have no requests!");
@@ -100,7 +99,7 @@ public class InventoryRequest extends JavaPlugin {
 			if(player != null){
 			    if(handler.hasRequest(player)){
 				handler.denyRequest(handler.getRequester(player), player);
-				handler.clearUsers(handler.getRequester(player), player);
+
 				return true;
 			    }else{
 				player.sendMessage("You have no requests!");
