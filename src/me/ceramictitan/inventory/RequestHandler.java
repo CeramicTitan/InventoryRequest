@@ -16,7 +16,7 @@ public class RequestHandler {
 	if(requester == target){
 	    return;
 	}
-	if(!requests.containsKey(target.getName())){
+	if(!requests.containsKey(target.getName()) && !requests.containsKey(requester.getName())){
 	    requests.put(requester.getName(), target.getName());
 	    requester.sendMessage("[DEBUG] added players to hashmap");
 	}
