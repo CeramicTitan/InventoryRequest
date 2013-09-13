@@ -15,7 +15,7 @@ public class RequestHandler {
 	if(requester == target){
 	    return;
 	}
-	if(!requests.containsKey(target.getName()) && !requests.containsKey(requester.getName())){
+	if(!requests.containsKey(target.getName()) || !requests.containsValue(target.getName()) && !requests.containsKey(requester.getName()) || !requests.containsValue(requester.getName())){
 	    requests.put(requester.getName(), target.getName());
 	    requester.sendMessage("[DEBUG] added players to hashmap");
 	}
@@ -40,6 +40,12 @@ public class RequestHandler {
 	return getRequester(target).getName();
     }
     public void acceptRequest(Player requester, Player target){
+	if(target == null){
+	    return;
+	}
+	if(requester == null){
+	    return;
+	}
 	Inventory inv = target.getInventory();
 	requester.closeInventory();
 	requester.openInventory(inv);
@@ -51,7 +57,7 @@ public class RequestHandler {
 	clearUsers(requester, target);
     }
     public static void clearUsers(Player requester, Player target){
-	if(requests.containsKey(requester.getName()) && requests.containsKey(target.getName())){
+	if(requests.containsKey(requester.getName()) && requests.containsValue(target.getName())){
 	    requests.remove(requester.getName());
 	    requests.remove(target.getName());
 	}
@@ -68,7 +74,7 @@ public class RequestHandler {
 	if(requests.containsValue(target.getName())){
 	    sender.sendMessage(target.getName()+" is in the hashmap");
 	}else{
-	    sender.sendMessage(target+" is not in the hashmap");
+	    sender.sendMessage(target.getName()+" is not in the hashmap");
 	}
     }
     public void clearUser(CommandSender sender){
