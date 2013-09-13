@@ -22,11 +22,24 @@ public class InventoryRequest extends JavaPlugin {
     }
     @Override
     public void onDisable(){
+	handler.clearRequests();
     }
 
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String CommandLabel,String[] args) {
+	if(cmd.getName().equalsIgnoreCase("debug")){
+	    if(sender.hasPermission("debug.hashmap")){
+		if(args.length == 1){
+		    if(args[0].equalsIgnoreCase("check")){
+			handler.isInHashMap(sender);
+		    }else if(args[0].equalsIgnoreCase("clear")){
+
+			handler.clearUser(sender);
+		    }
+		}
+	    }
+	}
 	if(cmd.getName().equalsIgnoreCase("invreq")){
 	    if(args.length > 2){
 		sender.sendMessage("Too many arguments");
@@ -48,11 +61,11 @@ public class InventoryRequest extends JavaPlugin {
 		}else if(args[0].equalsIgnoreCase("send")){
 		    if(sender instanceof Player){
 			Player requester = (Player)sender;
-			Player target = getServer().getPlayerExact(args[1]);
+			Player target = getServer().getPlayerExact(String.valueOf(args[1]));
 			if(target !=null){
 			    handler.sendRequest(requester, target);
 			    requester.sendMessage("Inventory request sent to "+target.getName());
-			    target.sendMessage("You have an inventory request from "+ handler.getRequesterName(target));
+			    target.sendMessage("You have an inventory request from "+ requester.getName());//Fixed NPE
 			    return true;
 			}else{
 			    sender.sendMessage(ChatColor.YELLOW+ String.valueOf(args[1])+ChatColor.RED+" is offline!");

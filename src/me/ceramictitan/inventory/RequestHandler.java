@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
@@ -12,17 +13,12 @@ public class RequestHandler {
     public static Map<String, String> requests = new HashMap<String, String>();
 
     public void sendRequest(Player requester, Player target){
-	if(requester == null){
-	    return;
-	}
-	if(target == null){
-	    return;
-	}
 	if(requester == target){
 	    return;
 	}
 	if(!requests.containsKey(target.getName())){
 	    requests.put(requester.getName(), target.getName());
+	    requester.sendMessage("[DEBUG] added players to hashmap");
 	}
     }
     public boolean hasRequest(Player target){
@@ -60,5 +56,19 @@ public class RequestHandler {
 	    requests.remove(requester.getName());
 	    requests.remove(target.getName());
 	}
+    }
+    //Debug
+    public void isInHashMap(CommandSender sender){
+	if(requests.containsKey(sender.getName())){
+	    sender.sendMessage("You are in the hashmap");
+	}else{
+	    sender.sendMessage("You are not in the hashmap");
+	}
+    }
+    public void clearUser(CommandSender sender){
+	requests.remove(sender.getName());
+    }
+    public void clearRequests(){
+	requests.clear();
     }
 }	

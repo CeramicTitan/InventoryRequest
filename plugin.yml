@@ -6,4 +6,6 @@ description: >
 commands:
   invreq:
     description: Allows you to change your nickname
+  debug:
+    description: A series of debug commands
 softdepend: [PluginManager]
