@@ -49,14 +49,12 @@ public class RequestHandler {
 	Inventory inv = target.getInventory();
 	requester.closeInventory();
 	requester.openInventory(inv);
-	clearUsers(requester, target);
     }
     public void denyRequest(Player requester, Player target){
 	requester.sendMessage(target.getName()+ " declined your request!");
 	target.sendMessage("Declined "+requester.getName()+"'s request!");
-	clearUsers(requester, target);
     }
-    public static void clearUsers(Player requester, Player target){
+    public void clearUsers(Player requester, Player target){
 	if(requests.containsKey(target.getName()) || requests.containsValue(target.getName()) && requests.containsKey(requester.getName()) || requests.containsValue(requester.getName())){
 	    requests.remove(requester.getName());
 	    requests.remove(target.getName());
