@@ -33,7 +33,7 @@ public class RequestHandler {
 	if(target == null){
 	    return null;
 	}
-	return Bukkit.getPlayerExact(requests.get(target.getName()));
+	return Bukkit.getPlayer(requests.get(target.getName()));
     }
 
     public String getRequesterName(Player target){
@@ -57,7 +57,7 @@ public class RequestHandler {
 	clearUsers(requester, target);
     }
     public static void clearUsers(Player requester, Player target){
-	if(requests.containsKey(requester.getName()) && requests.containsValue(target.getName())){
+	if(requests.containsKey(target.getName()) || requests.containsValue(target.getName()) && requests.containsKey(requester.getName()) || requests.containsValue(requester.getName())){
 	    requests.remove(requester.getName());
 	    requests.remove(target.getName());
 	}
