@@ -55,7 +55,7 @@ public class RequestHandler {
 	}
 	Inventory inv = target.getInventory();
 	requester.closeInventory();
-	requester.openInventory(inv);
+	requester.openInventory(inv).;
 	clearUsers(requester, target);
     }
     public void denyRequest(Player requester, Player target){

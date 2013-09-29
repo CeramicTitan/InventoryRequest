@@ -1,13 +1,19 @@
 package me.ceramictitan.inventory;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
+import org.bukkit.block.Sign;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class InventoryRequest extends JavaPlugin {
+public class InventoryRequest extends JavaPlugin implements Listener{
     private Plugin plugin;
     private final RequestHandler handler = new RequestHandler();
     @Override
@@ -119,5 +125,17 @@ public class InventoryRequest extends JavaPlugin {
 	    }
 	}
 	return false;
+    }
+    @EventHandler
+    public void onPlayerInteract(PlayerInteractEvent e){
+	Player p = e.getPlayer();
+	if(e.getAction() == Action.RIGHT_CLICK_BLOCK){
+	    if(e.getClickedBlock().getType() == Material.WALL_SIGN || e.getClickedBlock().getType() == Material.SIGN_POST){
+		Sign sign = (Sign) e.getClickedBlock().getState();
+		if(sign.getLine(1).equals("[Staff]")){
+		    p.sendMessage(ChatColor.GOLD + "You have click a sign!");
+		}
+	    }
+	}
     }
 }
